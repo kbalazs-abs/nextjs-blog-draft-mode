@@ -1,5 +1,5 @@
-import { draftMode } from "next/headers";
 import Link from "next/link";
+import { draftMode } from "next/headers";
 
 import MoreStories from "../../more-stories";
 import Avatar from "../../avatar";
@@ -9,20 +9,19 @@ import CoverImage from "../../cover-image";
 import { Markdown } from "@/lib/markdown";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
 
-import { PageProps } from "@/lib/types";
-
-
 export async function generateStaticParams() {
   const allPosts = await getAllPosts(false);
 
-  return allPosts
-    .filter((post) => typeof post.slug === "string") // csak ahol biztosan van slug
-    .map((post) => ({
-      slug: post.slug,
-    }));
+  return allPosts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
-export default async function PostPage({ params }: PageProps) {
+export default async function PostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { isEnabled } = draftMode();
   const { post, morePosts } = await getPostAndMorePosts(params.slug, isEnabled);
 
