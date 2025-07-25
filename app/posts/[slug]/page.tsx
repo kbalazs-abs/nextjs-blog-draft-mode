@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { draftMode } from "next/headers";
+import Link from "next/link";
 
 import MoreStories from "../../more-stories";
 import Avatar from "../../avatar";
@@ -9,11 +9,11 @@ import CoverImage from "../../cover-image";
 import { Markdown } from "@/lib/markdown";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
 
-type PageProps = {
+export interface PageProps {
   params: {
     slug: string;
   };
-};
+}
 
 export async function generateStaticParams() {
   const allPosts = await getAllPosts(false);
