@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Metadata } from "next";
 import { draftMode } from "next/headers";
 
 import MoreStories from "../../more-stories";
@@ -10,6 +9,11 @@ import CoverImage from "../../cover-image";
 import { Markdown } from "@/lib/markdown";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
 
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
 
 export async function generateStaticParams() {
   const allPosts = await getAllPosts(false);
@@ -21,31 +25,6 @@ export async function generateStaticParams() {
     }));
 }
 
-
-
-
-type Props = {
-  params: {
-    slug: string;
-  };
-};
-
-/*
-export default async function PostPage({ params }: Props) {
-  const { isEnabled } = draftMode();
-  const { post, morePosts } = await getPostAndMorePosts(params.slug, isEnabled);
-
-  // ... render
-}
-
-
-
-export default async function PostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  */
 export default async function PostPage({ params }: Props) {
   const { isEnabled } = draftMode();
   const { post, morePosts } = await getPostAndMorePosts(params.slug, isEnabled);
