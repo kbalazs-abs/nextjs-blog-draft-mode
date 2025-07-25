@@ -12,9 +12,11 @@ import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
 export async function generateStaticParams() {
   const allPosts = await getAllPosts(false);
 
-  return allPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  return allPosts
+    .filter((post) => typeof post.slug === "string") // csak ahol biztosan van slug
+    .map((post) => ({
+      slug: post.slug,
+    }));
 }
 
 export default async function PostPage({
