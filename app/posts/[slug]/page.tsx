@@ -9,11 +9,8 @@ import CoverImage from "../../cover-image";
 import { Markdown } from "@/lib/markdown";
 import { getAllPosts, getPostAndMorePosts } from "@/lib/api";
 
-export interface PageProps {
-  params: {
-    slug: string;
-  };
-}
+import { PageProps } from "@/lib/types";
+
 
 export async function generateStaticParams() {
   const allPosts = await getAllPosts(false);
